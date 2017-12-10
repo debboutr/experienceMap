@@ -68,6 +68,36 @@
     //   Result
     //   <span>Different text</span>
     // </button>
+    function WorkControl(map, name, pos) {
+
+      var newBtn = document.createElement('button');
+      newBtn.style.backgroundColor =  'transparent';
+      newBtn.style.border =  'none';
+      newBtn.style.borderRadius = '20px 0px 0px 20px'
+      newBtn.style.height = '42px';
+      newBtn.style.lineHeight = '42px';
+      newBtn.style.title = name;
+
+      // Set CSS for the control border.
+      var image = document.createElement('img');
+      image.src = "img/puffin.png";
+      image.height = "42";
+      image.width = "42";
+      image.className = 'straight';
+      newBtn.appendChild(image);
+
+      // Set CSS for the control interior.
+      var controlText = document.createElement('span');
+      controlText.innerHTML = name;
+      controlText.className = 'straight';
+      newBtn.appendChild(controlText);
+
+      newBtn.addEventListener('click', function() {
+        map.setZoom(18);
+        map.setCenter(pos);
+      });
+    return newBtn;
+    }
 
 function initialize() {
   var mapDiv = document.getElementById('map');
@@ -81,56 +111,7 @@ function initialize() {
 
 // this is where i'm working
 // new constructor function
-function WorkControl(controlDiv, map, name, pos) {
 
-  // Set CSS for the control border.
-  var controlUI = document.createElement('div');
-  controlUI.className = "job";
-  // controlUI.style.border = '2px solid #e5f981';
-  controlUI.style.borderRight = 0;
-  // controlUI.style.borderRadius = '15px 0px 0px 15px';
-  // controlUI.style.boxShadow = '0 2px 6px rgba(0,0,0,.3)';
-  controlUI.style.cursor = 'pointer';
-  controlUI.style.marginBottom = '2px';
-  controlUI.style.textAlign = 'center';
-  // controlUI.title = 'Click to recenter the map @ ' + name;
-  // controlDiv.appendChild(controlUI);
-
-  var controlBtn = document.createElement('button');
-  controlBtn.style.backgroundColor =  'transparent';
-  controlBtn.style.border =  'none';
-  controlBtn.style.height = '42px';
-  controlBtn.style.lineHeight = '42px';
-  controlDiv.appendChild(controlBtn);
-
-  // var controlImg = document.createElement('div');
-  // controlImg.className = 'straight';
-  // controlUI.appendChild(controlImg);
-
-  var image = document.createElement('img');
-  image.src = "img/puffin.png";
-  image.height = "42";
-  image.width = "42";
-  image.className = 'straight';
-  controlBtn.appendChild(image);
-
-  // Set CSS for the control interior.
-  var controlText = document.createElement('span');
-  controlText.innerHTML = name;
-  controlText.className = 'straight';
-  controlBtn.appendChild(controlText);
-
-  // Setup the click event listeners: simply set the map to job site.
-  controlBtn.addEventListener('click', function() {
-    map.setZoom(18);
-    map.setCenter(pos);
-  });
-
-  // controlUI.addEventListener('mouseover', function() {
-  //   map.setZoom(10);
-  //   // controlUI.style.color = '#0000ff';
-  // });
-}
 
   var workText = [
     ['Environmental Protection Agency', {lat: 44.565327, lng: -123.291290}],
@@ -138,21 +119,19 @@ function WorkControl(controlDiv, map, name, pos) {
     ['Geospatial Services',             {lat: 44.044728, lng: -91.694188}],
   ];
 
-for (var i = 0; i < workText.length; i++) {
+  var divWork = document.createElement('div');
+  divWork;
+
+  for (var i = 0; i < workText.length; i++) {
     var divLabel = workText[i][0];
     var divPos = workText[i][1];
-    var divName = document.createElement('div');
-    divName.style.borderRadius = '20px 0px 0px 20px';
-    divName.className = "job";
-    divName.style.cursor = 'pointer';
-    divName.style.borderRight = 0;
-    divName.style.border = '2px solid #40508c';
-    divName.style.backgroundColor = '#e5f981';
-    divName.style.marginBottom = '2px';
-    var newDiv = new WorkControl(divName, map, divLabel, divPos);
-    map.controls[google.maps.ControlPosition.RIGHT_CENTER].push(divName);
+    var newBtn = new WorkControl(map, divLabel, divPos);
+    divWork.appendChild(newBtn);
   }
+  map.controls[google.maps.ControlPosition.RIGHT_CENTER].push(divWork);
 }
+
+
 
 google.maps.event.addDomListener(window, 'load', initialize);
 
