@@ -14,11 +14,11 @@
         height: 100%;
       }
     .controlUI {
-      background-color: #fff;
-      border: 2px solid #fff;
-      border-radius: 3px;
-      box-shadow: 0 2px 6px rgba(0,0,0,.3);
-      margin-bottom: 22px;
+      /*background-color: #fff;*/
+      /*border: 2px solid #fff;*/
+      /*border-radius: 3px;*/
+      /*box-shadow: 0 2px 6px rgba(0,0,0,.3);*/
+      /*margin-bottom: 22px;*/
       text-align: center;
     }
     .controlText {
@@ -28,13 +28,6 @@
       line-height: 18px;
       padding-left: 5px;
       padding-right: 5px;
-    }
-    .job div:hover {
-        color:#DDD;
-        background-color: yellow;
-    }
-    .straight {
-      display:inline;
     }
     .job button span {
       max-width: 0;
@@ -90,19 +83,22 @@ function WorkControl(controlDiv, map, name, pos) {
   // Set CSS for the control border.
   var controlUI = document.createElement('div');
   controlUI.className = "job";
-  controlUI.style.backgroundColor = '#e5f981';
-  controlUI.style.border = '2px solid #fff';
+  // controlUI.style.border = '2px solid #e5f981';
   controlUI.style.borderRight = 0;
-  controlUI.style.borderRadius = '3px';
-  controlUI.style.boxShadow = '0 2px 6px rgba(0,0,0,.3)';
+  // controlUI.style.borderRadius = '15px 0px 0px 15px';
+  // controlUI.style.boxShadow = '0 2px 6px rgba(0,0,0,.3)';
   controlUI.style.cursor = 'pointer';
-  controlUI.style.marginBottom = '22px';
+  controlUI.style.marginBottom = '2px';
   controlUI.style.textAlign = 'center';
   // controlUI.title = 'Click to recenter the map @ ' + name;
-  controlDiv.appendChild(controlUI);
+  // controlDiv.appendChild(controlUI);
 
   var controlBtn = document.createElement('button');
-  controlUI.appendChild(controlBtn);
+  controlBtn.style.backgroundColor =  'transparent';
+  controlBtn.style.border =  'none';
+  controlBtn.style.height = '42px';
+  controlBtn.style.lineHeight = '42px';
+  controlDiv.appendChild(controlBtn);
 
   // var controlImg = document.createElement('div');
   // controlImg.className = 'straight';
@@ -143,6 +139,13 @@ for (var i = 0; i < workText.length; i++) {
     var divLabel = workText[i][0];
     var divPos = workText[i][1];
     var divName = document.createElement('div');
+    divName.style.borderRadius = '20px 0px 0px 20px';
+    divName.className = "job";
+    divName.style.cursor = 'pointer';
+    divName.style.borderRight = 0;
+    divName.style.border = '2px solid #fff';
+    divName.style.backgroundColor = '#e5f981';
+    divName.style.marginBottom = '2px';
     var newDiv = new WorkControl(divName, map, divLabel, divPos);
     map.controls[google.maps.ControlPosition.RIGHT_CENTER].push(divName);
   }
