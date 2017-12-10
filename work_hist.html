@@ -118,7 +118,7 @@ function WorkControl(controlDiv, map, name, pos) {
   controlBtn.appendChild(controlText);
 
   // Setup the click event listeners: simply set the map to job site.
-  controlUI.addEventListener('click', function() {
+  controlBtn.addEventListener('click', function() {
     map.setZoom(18);
     map.setCenter(pos);
   });
