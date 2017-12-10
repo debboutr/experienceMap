@@ -30,6 +30,10 @@
       padding-left: 5px;
       padding-right: 5px;
     }
+    .job div:hover {
+        color:#DDD;
+        background-color: yellow;
+    }
     </style>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAjHGiQbncD2VMDmxSQQRtFGIpoRMg6OIk&"></script>
     <script>
@@ -50,6 +54,7 @@ function WorkControl(controlDiv, map, name, pos) {
 
   // Set CSS for the control border.
   var controlUI = document.createElement('div');
+  controlUI.className = "job";
   controlUI.style.backgroundColor = '#e5f981';
   controlUI.style.border = '2px solid #fff';
   controlUI.style.borderRadius = '3px';
@@ -89,9 +94,6 @@ function WorkControl(controlDiv, map, name, pos) {
     ['Geospatial Services',             {lat: 44.044728, lng: -91.694188}],
   ];
 
-
-
-
 for (var i = 0; i < workText.length; i++) {
     var divLabel = workText[i][0];
     var divPos = workText[i][1];
@@ -100,14 +102,6 @@ for (var i = 0; i < workText.length; i++) {
     map.controls[google.maps.ControlPosition.RIGHT_CENTER].push(divName);
   }
 }
-// to here...
-//   for (var i = 0; i < controlText.length; i++) {
-//     var divLabel = controlText[i][0];
-//     var divName = document.createElement('div');
-//     var newDiv = new MakeControl(divName, divLabel);
-//     map.controls[controlText[i][1]].push(divName);
-//   }
-// }
 
 google.maps.event.addDomListener(window, 'load', initialize);
 
