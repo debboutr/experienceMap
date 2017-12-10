@@ -46,7 +46,7 @@
       overflow: hidden;
     }
     .job button:hover span {
-      max-width: 7rem;
+      max-width: 17rem;
     }
     </style>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAjHGiQbncD2VMDmxSQQRtFGIpoRMg6OIk&"></script>
@@ -92,6 +92,7 @@ function WorkControl(controlDiv, map, name, pos) {
   controlUI.className = "job";
   controlUI.style.backgroundColor = '#e5f981';
   controlUI.style.border = '2px solid #fff';
+  controlUI.style.borderRight = 0;
   controlUI.style.borderRadius = '3px';
   controlUI.style.boxShadow = '0 2px 6px rgba(0,0,0,.3)';
   controlUI.style.cursor = 'pointer';
