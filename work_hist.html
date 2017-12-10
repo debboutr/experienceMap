@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
   <head>
@@ -37,9 +36,42 @@
     .straight {
       display:inline;
     }
+    .job button span {
+      max-width: 0;
+      -webkit-transition: max-width 1s;
+      transition: max-width 1s;
+      display: inline-block;
+      vertical-align: top;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+    .job button:hover span {
+      max-width: 7rem;
+    }
     </style>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAjHGiQbncD2VMDmxSQQRtFGIpoRMg6OIk&"></script>
     <script>
+
+    // button span {
+    //   max-width: 0;
+    //   -webkit-transition: max-width 1s;
+    //   transition: max-width 1s;
+    //   display: inline-block;
+    //   vertical-align: top;
+    //   white-space: nowrap;
+    //   overflow: hidden;
+    // }
+    // button:hover span {
+    //   max-width: 7rem;
+    // }
+    // <button id="btn">
+    //   Result
+    //   <span>New result</span>
+    // </button>
+    // <button id="btn">
+    //   Result
+    //   <span>Different text</span>
+    // </button>
 
 function initialize() {
   var mapDiv = document.getElementById('map');
@@ -68,27 +100,25 @@ function WorkControl(controlDiv, map, name, pos) {
   // controlUI.title = 'Click to recenter the map @ ' + name;
   controlDiv.appendChild(controlUI);
 
-  var controlImg = document.createElement('div');
-  controlImg.className = 'straight';
-  controlUI.appendChild(controlImg);
+  var controlBtn = document.createElement('button');
+  controlUI.appendChild(controlBtn);
+
+  // var controlImg = document.createElement('div');
+  // controlImg.className = 'straight';
+  // controlUI.appendChild(controlImg);
 
   var image = document.createElement('img');
   image.src = "img/puffin.png";
   image.height = "42";
   image.width = "42";
-  controlImg.appendChild(image);
+  image.className = 'straight';
+  controlBtn.appendChild(image);
 
   // Set CSS for the control interior.
-  var controlText = document.createElement('div');
-  controlText.style.color = 'rgb(25,25,25)';
-  controlText.style.fontFamily = 'Roboto,Arial,sans-serif';
-  controlText.style.fontSize = '16px';
-  controlText.style.lineHeight = '38px';
-  controlText.style.paddingLeft = '5px';
-  controlText.style.paddingRight = '5px';
+  var controlText = document.createElement('span');
   controlText.innerHTML = name;
   controlText.className = 'straight';
-  controlUI.appendChild(controlText);
+  controlBtn.appendChild(controlText);
 
   // Setup the click event listeners: simply set the map to job site.
   controlUI.addEventListener('click', function() {
