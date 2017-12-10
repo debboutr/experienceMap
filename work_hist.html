@@ -76,6 +76,11 @@ function WorkControl(controlDiv, map, name, pos) {
   controlText.innerHTML = name;
   controlUI.appendChild(controlText);
 
+  var image = document.createElement('img');
+  image.src = "img/puffin.png";
+  controlText.appendChild(image);
+
+
   // Setup the click event listeners: simply set the map to job site.
   controlUI.addEventListener('click', function() {
     map.setZoom(18);
