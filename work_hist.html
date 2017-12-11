@@ -13,14 +13,6 @@
       #map {
         height: 100%;
       }
-    .controlUI {
-      /*background-color: #fff;*/
-      /*border: 2px solid #fff;*/
-      /*border-radius: 3px;*/
-      /*box-shadow: 0 2px 6px rgba(0,0,0,.3);*/
-      /*margin-bottom: 22px;*/
-      text-align: center;
-    }
     .controlText {
       color: rgb(25,25,25);
       font-family: Roboto,Arial,sans-serif;
@@ -43,31 +35,12 @@
     }
     .job button:hover span {
       max-width: 17rem;
+      text: bold;
     }
     </style>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAjHGiQbncD2VMDmxSQQRtFGIpoRMg6OIk&"></script>
     <script>
 
-    // button span {
-    //   max-width: 0;
-    //   -webkit-transition: max-width 1s;
-    //   transition: max-width 1s;
-    //   display: inline-block;
-    //   vertical-align: top;
-    //   white-space: nowrap;
-    //   overflow: hidden;
-    // }
-    // button:hover span {
-    //   max-width: 7rem;
-    // }
-    // <button id="btn">
-    //   Result
-    //   <span>New result</span>
-    // </button>
-    // <button id="btn">
-    //   Result
-    //   <span>Different text</span>
-    // </button>
 
 function initialize() {
   var mapDiv = document.getElementById('map');
@@ -79,22 +52,23 @@ function initialize() {
   };
   var map = new google.maps.Map(mapDiv, mapOptions);
 
-// this is where i'm working
-// new constructor function
-function WorkControl(controlDiv, map, name, pos) {
+function WorkControl(controlDiv, map, img, name, pos, zm) {
+  controlDiv.style.borderRadius = '20px 0px 0px 20px';
+  controlDiv.className = "job";
+  controlDiv.style.cursor = 'pointer';
+  controlDiv.style.borderRight = 0;
+  controlDiv.style.border = '2px solid #192b39';
+  controlDiv.style.backgroundColor = '#747763';
+  controlDiv.style.marginBottom = '2px';
 
-  // Set CSS for the control border.
-  var controlUI = document.createElement('div');
-  controlUI.className = "job";
-  // controlUI.style.border = '2px solid #e5f981';
-  controlUI.style.borderRight = 0;
-  // controlUI.style.borderRadius = '15px 0px 0px 15px';
-  // controlUI.style.boxShadow = '0 2px 6px rgba(0,0,0,.3)';
-  controlUI.style.cursor = 'pointer';
-  controlUI.style.marginBottom = '2px';
-  controlUI.style.textAlign = 'center';
-  // controlUI.title = 'Click to recenter the map @ ' + name;
-  // controlDiv.appendChild(controlUI);
+  controlDiv.addEventListener('mouseenter', function() {
+    controlDiv.style.border = '3px solid #0366b3';
+  });
+
+  controlDiv.addEventListener('mouseleave', function() {
+    controlDiv.style.border = '2px solid #192b39';
+  });
+
 
   var controlBtn = document.createElement('button');
   controlBtn.style.backgroundColor =  'transparent';
@@ -103,53 +77,44 @@ function WorkControl(controlDiv, map, name, pos) {
   controlBtn.style.lineHeight = '42px';
   controlDiv.appendChild(controlBtn);
 
-  // var controlImg = document.createElement('div');
-  // controlImg.className = 'straight';
-  // controlUI.appendChild(controlImg);
-
   var image = document.createElement('img');
-  image.src = "img/puffin.png";
+  image.src = "img/" + img + ".png";
   image.height = "42";
   image.width = "42";
   image.className = 'straight';
   controlBtn.appendChild(image);
 
-  // Set CSS for the control interior.
   var controlText = document.createElement('span');
-  controlText.innerHTML = name;
   controlText.className = 'straight';
+  controlText.style.color = '#dee8a1';
   controlBtn.appendChild(controlText);
 
+  var controlEm = document.createElement('b');
+  controlEm.innerHTML = name;
+  controlText.appendChild(controlEm);
   // Setup the click event listeners: simply set the map to job site.
   controlBtn.addEventListener('click', function() {
-    map.setZoom(18);
+    map.setZoom(zm);
     map.setCenter(pos);
   });
-
-  // controlUI.addEventListener('mouseover', function() {
-  //   map.setZoom(10);
-  //   // controlUI.style.color = '#0000ff';
-  // });
 }
 
   var workText = [
-    ['Environmental Protection Agency', {lat: 44.565327, lng: -123.291290}],
-    ['Bandon Dunes Golf Resort',        {lat: 43.187987, lng: -124.390170}],
-    ['Geospatial Services',             {lat: 44.044728, lng: -91.694188}],
+    ['epa', 'Environmental Protection Agency', {lat: 44.565327, lng: -123.291290}, 17],
+    ['puf', 'Bandon Dunes Golf Resort',        {lat: 43.187987, lng: -124.390170}, 14],
+    ['smu', 'Geospatial Services',             {lat: 44.044728, lng: -91.694188}, 16],
+    ['slb', 'Schlumberger',                    {lat: 70.252716, lng: -148.350170}, 9],
+    ['hsp', 'Highland Golf Construction',      {lat: 43.738300, lng: -111.118463}, 14],
+    ['eme', 'Emery\'s Bike and Home Fitness',  {lat: 43.177965, lng: -88.096688}, 18],
   ];
 
 for (var i = 0; i < workText.length; i++) {
-    var divLabel = workText[i][0];
-    var divPos = workText[i][1];
+    var pic = workText[i][0];
+    var divLabel = workText[i][1];
+    var divPos = workText[i][2];
+    var zoom = workText[i][3];
     var divName = document.createElement('div');
-    divName.style.borderRadius = '20px 0px 0px 20px';
-    divName.className = "job";
-    divName.style.cursor = 'pointer';
-    divName.style.borderRight = 0;
-    divName.style.border = '2px solid #40508c';
-    divName.style.backgroundColor = '#e5f981';
-    divName.style.marginBottom = '2px';
-    var newDiv = new WorkControl(divName, map, divLabel, divPos);
+    var newDiv = new WorkControl(divName, map, pic, divLabel, divPos, zoom);
     map.controls[google.maps.ControlPosition.RIGHT_CENTER].push(divName);
   }
 }
